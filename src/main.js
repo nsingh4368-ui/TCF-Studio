@@ -110,4 +110,15 @@ fontSize.addEventListener("change", () => {
   );
 
 });
+const savedFontSize =
+  LS(
+    "editorFontSize",
+    16
+  );
+
+fontSize.value =
+  savedFontSize;
+
+editor.style.fontSize =
+  savedFontSize + "px";
 loadDraft();
