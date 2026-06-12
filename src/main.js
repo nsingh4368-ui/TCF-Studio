@@ -4,6 +4,7 @@ import { LS, SV } from "./storage.js";
 const editor = document.getElementById("editor");
 const wordCount = document.getElementById("wordCount");
 const limitInfo = document.getElementById("limitInfo");
+const fontSize = document.getElementById("fontSize");
 
 const buttons = document.querySelectorAll(".task-btn");
 
