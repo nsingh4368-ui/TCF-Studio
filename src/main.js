@@ -99,5 +99,15 @@ document
   });
 
 });
+fontSize.addEventListener("change", () => {
 
+  editor.style.fontSize =
+    fontSize.value + "px";
+
+  SV(
+    "editorFontSize",
+    fontSize.value
+  );
+
+});
 loadDraft();
