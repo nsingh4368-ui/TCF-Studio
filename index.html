@@ -3,38 +3,195 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TCF Quiz App - French Test Preparation</title>
+    <title>TCF EE Studio - French Keyboard & Learning Suite</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body data-theme="light">
-    <div class="container">
-        <div class="header-controls">
-            <button id="darkModeToggle" class="icon-btn">🌙</button>
-            <button id="importCenterBtn" class="icon-btn" title="Import Center">📥</button>
-            <button id="exportCenterBtn" class="icon-btn" title="Export Center">📤</button>
-        </div>
-        
-        <h1>🇫🇷 TCF Quiz App</h1>
-        <p class="subtitle">Test de Connaissance du Français - Practice Mode</p>
-        
-        <div class="quiz-info">
-            <div class="progress">Question <span id="currentQ">1</span> / <span id="totalQ">0</span></div>
-            <div class="score">Score: <span id="score">0</span></div>
-            <div class="best-score">🏆 Best: <span id="bestScore">0</span></div>
-        </div>
-
-        <div class="timer-container">
-            <div class="timer-label">⏱️ Time Left</div>
-            <div class="timer-circle">
-                <span id="timer">30</span>
-                <svg class="timer-svg">
-                    <circle class="timer-bg" cx="40" cy="40" r="35"></circle>
-                    <circle class="timer-progress" cx="40" cy="40" r="35"></circle>
-                </svg>
+    <div class="app-wrapper">
+        <!-- Header -->
+        <div class="app-header">
+            <div class="logo">
+                <h1>🇫🇷 TCF EE Studio</h1>
+                <span class="version">v4.0 - Complete Suite</span>
+            </div>
+            <div class="header-controls">
+                <div class="profile-selector">
+                    <span class="profile-label">👤 Profile:</span>
+                    <select id="profileSelect"></select>
+                    <button id="manageProfilesBtn" class="icon-btn" title="Manage Profiles">👥</button>
+                </div>
+                <button id="darkModeToggle" class="icon-btn">🌙</button>
+                <button id="importCenterBtn" class="icon-btn" title="Import Center">📥</button>
+                <button id="exportCenterBtn" class="icon-btn" title="Export Center">📤</button>
+                <button id="smartResetBtn" class="icon-btn" title="Smart Reset">🔄</button>
             </div>
         </div>
 
-        <div class="progress-bar-container">
+        <!-- Main Navigation Tabs -->
+        <div class="main-tabs">
+            <button class="tab-btn active" data-tab="keyboard">⌨️ TCF Keyboard</button>
+            <button class="tab-btn" data-tab="quiz">📝 Quiz Mode</button>
+            <button class="tab-btn" data-tab="writing">✍️ Writing Studio</button>
+            <button class="tab-btn" data-tab="subjects">📚 Subject Bank</button>
+            <button class="tab-btn" data-tab="statistics">📊 Statistics</button>
+            <button class="tab-btn" data-tab="mock">🎧 Mock Tests</button>
+        </div>
+
+        <!-- Tab 1: TCF Keyboard (Main Feature - Accent Box on Right) -->
+        <div id="keyboardTab" class="tab-content active">
+            <div class="keyboard-layout">
+                <!-- Left: Text Area -->
+                <div class="text-area-panel">
+                    <div class="panel-header">
+                        <h2>✍️ French Writing Area</h2>
+                        <div class="text-controls">
+                            <button id="clearTextBtn" class="small-btn">🗑️ Clear</button>
+                            <button id="copyTextBtn" class="small-btn">📋 Copy</button>
+                            <span id="charCount">0 characters</span>
+                        </div>
+                    </div>
+                    <textarea id="mainTextArea" placeholder="Start typing in French here...&#10;&#10;Use the accent keyboard on the right or keyboard shortcuts:&#10;Alt+e = é, Alt+E = É, Alt+c = ç, etc."></textarea>
+                    
+                    <!-- Productions Section -->
+                    <div class="productions-section">
+                        <h3>📝 Saved Productions</h3>
+                        <div id="productionsList" class="productions-list"></div>
+                    </div>
+                </div>
+
+                <!-- Right: Accent Keyboard (Fixed on right middle) -->
+                <div class="accent-keyboard-panel">
+                    <div class="accent-header">
+                        <h3>🎯 TCF Accent Keyboard</h3>
+                        <div class="accent-controls">
+                            <div class="case-toggle">
+                                <button id="lowercaseBtn" class="case-btn active">abc</button>
+                                <button id="uppercaseBtn" class="case-btn">ABC</button>
+                            </div>
+                            <div class="set-nav">
+                                <button id="prevSetBtn" class="nav-btn" title="Previous Set">◀</button>
+                                <span id="currentSetName" class="set-name">Standard</span>
+                                <button id="nextSetBtn" class="nav-btn" title="Next Set">▶</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Accent Grid -->
+                    <div class="accent-grid" id="accentGrid"></div>
+                    
+                    <!-- Keyboard Shortcuts -->
+                    <div class="shortcuts-panel">
+                        <h4>⌨️ Shortcuts (Alt + Key)</h4>
+                        <div class="shortcuts-grid">
+                            <div class="shortcut-item"><span>Alt+E</span> → é/É</div>
+                            <div class="shortcut-item"><span>Alt+A</span> → à/À</div>
+                            <div class="shortcut-item"><span>Alt+C</span> → ç/Ç</div>
+                            <div class="shortcut-item"><span>Alt+I</span> → î/Î</div>
+                            <div class="shortcut-item"><span>Alt+U</span> → ù/Ù</div>
+                            <div class="shortcut-item"><span>Alt+O</span> → ô/Ô</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 2: Quiz Mode -->
+        <div id="quizTab" class="tab-content">
+            <div class="container">
+                <div class="quiz-info">
+                    <div class="progress">Question <span id="currentQ">1</span> / <span id="totalQ">0</span></div>
+                    <div class="score">Score: <span id="score">0</span></div>
+                    <div class="best-score">🏆 Best: <span id="bestScore">0</span></div>
+                </div>
+                <div class="timer-container">
+                    <div class="timer-label">⏱️ Time Left</div>
+                    <div class="timer-circle">
+                        <span id="timer">30</span>
+                        <svg class="timer-svg"><circle class="timer-bg" cx="40" cy="40" r="35"></circle><circle class="timer-progress" cx="40" cy="40" r="35"></circle></svg>
+                    </div>
+                </div>
+                <div class="progress-bar-container"><div class="progress-bar-fill" id="progressBarFill"></div></div>
+                <div id="quiz-container">
+                    <div id="question">Loading...</div>
+                    <div id="options"></div>
+                    <div class="button-group"><button id="prevBtn" class="btn-secondary" style="display:none;">← Previous</button><button id="nextBtn">Next →</button></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 3: Writing Studio -->
+        <div id="writingTab" class="tab-content">
+            <div class="container">
+                <h2>✍️ Writing Studio</h2>
+                <div class="subject-selector">
+                    <label>Theme:</label>
+                    <select id="writingSubject">
+                        <option value="Society">🏛️ Society</option><option value="Technology">💻 Technology</option>
+                        <option value="Work">💼 Work</option><option value="Health">❤️ Health</option>
+                        <option value="Environment">🌍 Environment</option><option value="Education">📚 Education</option>
+                        <option value="Immigration">🛂 Immigration</option><option value="Energy">⚡ Energy</option>
+                    </select>
+                    <button id="importSubjectBtn" class="small-btn">📥 Parse Subject</button>
+                </div>
+                <div class="writing-prompt"><label>Prompt:</label><textarea id="writingPrompt" rows="3" placeholder="Paste ChatGPT-generated subject here..."></textarea></div>
+                <div class="writing-response"><label>Your Response:</label><textarea id="writingResponse" rows="6" placeholder="Write your French response here..."></textarea></div>
+                <div class="writing-buttons">
+                    <button id="analyzeSpellingBtn" class="btn-primary">🔍 Analyze Spelling</button>
+                    <button id="trackOveruseBtn" class="btn-secondary">📊 Track Overuse</button>
+                    <button id="saveProductionBtn" class="btn-secondary">💾 Save</button>
+                </div>
+                <div id="analysisResults" style="display:none;"><div id="spellingErrors"></div><div id="overuseWarning"></div></div>
+                <div class="confidence-rating" style="display:none;">
+                    <button class="confidence-btn" data-confidence="low">😬 Low</button>
+                    <button class="confidence-btn" data-confidence="medium">🙂 Medium</button>
+                    <button class="confidence-btn" data-confidence="high">😎 High</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 4: Subject Bank -->
+        <div id="subjectsTab" class="tab-content">
+            <div class="container">
+                <h2>📚 Subject Bank</h2>
+                <div class="subject-filters"><select id="subjectCategoryFilter"><option value="all">All Categories</option><option value="Society">Society</option><option value="Technology">Technology</option><option value="Work">Work</option><option value="Health">Health</option><option value="Environment">Environment</option></select><button id="addSubjectBtn" class="small-btn">+ Add</button></div>
+                <div id="subjectsList" class="subjects-list"></div>
+            </div>
+        </div>
+
+        <!-- Tab 5: Statistics -->
+        <div id="statisticsTab" class="tab-content">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-card"><h3>⚠️ Error Distribution</h3><div id="errorStats"></div></div>
+                    <div class="stat-card"><h3>🔄 Top Errors</h3><div id="topErrors"></div></div>
+                    <div class="stat-card"><h3>📝 Vocabulary Overuse</h3><div id="vocabularyOveruse"></div></div>
+                    <div class="stat-card"><h3>🔗 Connector Overuse</h3><div id="connectorOveruse"></div></div>
+                    <div class="stat-card"><h3>🎯 Theme Balance</h3><div id="themeBalance"></div></div>
+                    <div class="stat-card"><h3>📈 Confidence History</h3><div id="confidenceHistory"></div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 6: Mock Tests -->
+        <div id="mockTab" class="tab-content">
+            <div class="container">
+                <h2>🎧 Mock Tests</h2>
+                <div class="mock-selector"><button id="listeningMockBtn" class="mock-btn">🎧 Listening</button><button id="readingMockBtn" class="mock-btn">📖 Reading</button><button id="fullSimulationBtn" class="mock-btn primary">🎯 Full TCF</button></div>
+                <div id="mockContent" class="mock-content"><p>Select a mock test to begin...</p></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div id="profileModal" class="modal" style="display:none;"><div class="modal-content"><div class="modal-header"><h2>Manage Profiles</h2><button class="close-modal">&times;</button></div><div class="modal-body"><input type="text" id="newProfileName" placeholder="Profile name"><button id="createProfileBtn" class="small-btn">Create</button><div id="profilesList"></div></div></div></div>
+    <div id="importModal" class="modal" style="display:none;"><div class="modal-content"><div class="modal-header"><h2>Import Center</h2><button class="close-modal">&times;</button></div><div class="modal-body"><select id="importType"><option value="vocabulary">Vocabulary</option><option value="connectors">Connectors</option><option value="errors">Errors</option><option value="subjects">Subjects</option></select><input type="file" id="importFile" accept=".txt"><div class="preview-area" id="previewArea" style="display:none;"><pre id="previewContent"></pre><button id="confirmImportBtn" class="btn-primary">Confirm</button></div></div></div></div>
+    <div id="exportModal" class="modal" style="display:none;"><div class="modal-content"><div class="modal-header"><h2>Export Center</h2><button class="close-modal">&times;</button></div><div class="modal-body"><div class="export-options"><label><input type="checkbox" value="vocabulary"> Vocabulary</label><label><input type="checkbox" value="connectors"> Connectors</label><label><input type="checkbox" value="errors"> Errors</label><label><input type="checkbox" value="subjects"> Subjects</label><label><input type="checkbox" value="complete"> Complete Backup</label></div><button id="confirmExportBtn" class="btn-primary">Export</button></div></div></div>
+    <div id="resetModal" class="modal" style="display:none;"><div class="modal-content"><div class="modal-header"><h2>Smart Reset</h2><button class="close-modal">&times;</button></div><div class="modal-body"><label><input type="checkbox" id="deleteEverything"> Delete Everything</label><button id="confirmResetBtn" class="btn-danger">Confirm</button></div></div></div>
+
+    <script src="sujets.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>        <div class="progress-bar-container">
             <div class="progress-bar-fill" id="progressBarFill" style="width: 0%"></div>
         </div>
 
