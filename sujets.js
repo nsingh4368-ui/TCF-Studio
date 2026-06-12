@@ -1,6 +1,5 @@
-// TCF Professional Question Database - 20+ Questions
+// TCF Professional Question Database - 22 Questions
 const questions = [
-    // A2 Level - Basic
     {
         id: 1,
         text: "Chaque matin, je ______ un café avant de travailler.",
@@ -25,7 +24,6 @@ const questions = [
         difficulty: "A2",
         explanation: "Formal inversion: 'Que fais-tu?'"
     },
-    // B1 Level - Intermediate
     {
         id: 4,
         text: "Si j'avais su, je ______ venu plus tôt.",
@@ -66,7 +64,6 @@ const questions = [
         difficulty: "B1",
         explanation: "Relative pronoun 'qui' as subject"
     },
-    // B2 Level - Advanced
     {
         id: 9,
         text: "Elle m'a demandé ______ je voulais l'accompagner.",
@@ -99,7 +96,6 @@ const questions = [
         difficulty: "B2",
         explanation: "Réussir à = to succeed in"
     },
-    // C1 Level - Expert
     {
         id: 13,
         text: "Bien qu'il ______ fatigué, il a continué.",
@@ -124,7 +120,6 @@ const questions = [
         difficulty: "C1",
         explanation: "Autant te dire = might as well tell you"
     },
-    // Vocabulary & Expressions
     {
         id: 16,
         text: "Ça m'est ______ ! (It's all the same to me)",
@@ -183,5 +178,4 @@ const questions = [
     }
 ];
 
-// Store total for display
 const totalQuestions = questions.length;
