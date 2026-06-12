@@ -1,14 +1,11 @@
-// ============================================
-// TCF EE STUDIO - COMPLETE SUITE
-// ============================================
+// TCF EE Studio - Complete Application
 
-// ============ DATA STORES ============
-let currentQuestion = 0, score = 0, selectedAnswer = null, quizFinished = false, timer, timeLeft = 30;
-let bestScore = localStorage.getItem('tcfBestScore') || 0;
-let currentProfile = localStorage.getItem('currentProfile') || 'default';
-let profiles = JSON.parse(localStorage.getItem('tcfProfiles')) || { default: {} };
-let vocabularyData = [], connectorsData = [], errorsData = [], subjectsData = [], productionsData = [], confidenceHistory = [];
-let themeCounts = { Society: 0, Technology: 0, Work: 0, Health: 0, Environment: 0, Education: 0, Immigration: 0, Energy: 0 };
+// ============ STATE ============
+let currentMode = 'free'; // 'free' or 'combination'
+let timerInterval = null;
+let timerSeconds = 1800; // 30 minutes default
+let timerRunning = false;
+let currentCombination = null;
 
 // Accent Keyboard State
 let currentCase = 'lowercase';
@@ -19,34 +16,54 @@ const accentSets = [
     { name: 'Typing', lowercase: ['ain', 'ein', 'oin', 'ien', 'tion', 'age', 'ance', 'ence', 'ment', 'able', 'ible'], uppercase: ['AIN', 'EIN', 'OIN', 'IEN', 'TION', 'AGE', 'ANCE', 'ENCE', 'MENT', 'ABLE', 'IBLE'] }
 ];
 
+// Saved responses
+let savedResponses = JSON.parse(localStorage.getItem('tcfResponses')) || [];
+
 // ============ INITIALIZATION ============
 document.addEventListener('DOMContentLoaded', () => {
-    loadProfileData();
-    document.getElementById('totalQ').textContent = questions.length;
-    document.getElementById('bestScore').textContent = bestScore;
-    loadQuestion();
+    initEventListeners();
+    initAccentKeyboard();
+    initTimer();
+    updateWordCounts();
+    loadCombinationFilters();
     
-    // Tab switching
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.addEventListener('click', () => switchTab(btn.dataset.tab));
-    });
+    // Load dark mode preference
+    if (localStorage.getItem('darkMode') === 'enabled') {
+        document.body.setAttribute('data-theme', 'dark');
+        document.getElementById('darkModeToggle').textContent = '☀️';
+    }
+});
+
+function initEventListeners() {
+    // Mode switching
+    document.getElementById('freeModeBtn').addEventListener('click', () => switchMode('free'));
+    document.getElementById('combinationModeBtn').addEventListener('click', () => switchMode('combination'));
     
-    // Header buttons
-    document.getElementById('darkModeToggle')?.addEventListener('click', toggleDarkMode);
-    document.getElementById('importCenterBtn')?.addEventListener('click', openImportModal);
-    document.getElementById('exportCenterBtn')?.addEventListener('click', openExportModal);
-    document.getElementById('smartResetBtn')?.addEventListener('click', openResetModal);
-    document.getElementById('manageProfilesBtn')?.addEventListener('click', openProfileModal);
-    document.getElementById('profileSelect')?.addEventListener('change', switchProfile);
+    // Timer controls
+    document.getElementById('startTimerBtn').addEventListener('click', toggleTimer);
+    document.getElementById('resetTimerBtn').addEventListener('click', resetTimer);
     
-    // Keyboard tab buttons
-    document.getElementById('clearTextBtn')?.addEventListener('click', () => { document.getElementById('mainTextArea').value = ''; updateCharCount(); });
-    document.getElementById('copyTextBtn')?.addEventListener('click', () => { document.getElementById('mainTextArea').select(); document.execCommand('copy'); showToast('Copied!'); });
-    document.getElementById('mainTextArea')?.addEventListener('input', updateCharCount);
-    document.getElementById('lowercaseBtn')?.addEventListener('click', () => setCase('lowercase'));
-    document.getElementById('uppercaseBtn')?.addEventListener('click', () => setCase('uppercase'));
-    document.getElementById('prevSetBtn')?.addEventListener('click', () => changeSet(-1));
-    document.getElementById('nextSetBtn')?.addEventListener('click', () => changeSet(1));
+    // Action buttons
+    document.getElementById('analyzeBtn').addEventListener('click', analyzeWriting);
+    document.getElementById('saveResponseBtn').addEventListener('click', saveResponse);
+    document.getElementById('clearBtn').addEventListener('click', clearText);
     
-    // Writing studio
-    document.getElementById('analyzeSpellingBtn')?.addEventListener('click', analyzeSpelling
+    // Dark mode
+    document.getElementById('darkModeToggle').addEventListener('click', toggleDarkMode);
+    
+    // Combination mode filters
+    document.getElementById('monthFilter').addEventListener('change', loadCombinationFilters);
+    document.getElementById('combinationFilter').addEventListener('change', loadCombination);
+    document.getElementById('randomSubjectBtn').addEventListener('click', loadRandomCombination);
+    
+    // Word count updates
+    document.getElementById('freeResponse').addEventListener('input', () => updateWordCount('free'));
+    document.getElementById('combinationResponse').addEventListener('input', () => updateWordCount('combination'));
+}
+
+function switchMode(mode) {
+    currentMode = mode;
+    
+    // Update UI
+    document.getElementById('freeModeBtn').classList.toggle('active', mode === 'free');
+    document.getElementById('combinationModeBtn').classList.toggle('active', mode ===
