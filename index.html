@@ -10,6 +10,8 @@
     <div class="container">
         <div class="header-controls">
             <button id="darkModeToggle" class="icon-btn">🌙</button>
+            <button id="importCenterBtn" class="icon-btn" title="Import Center">📥</button>
+            <button id="exportCenterBtn" class="icon-btn" title="Export Center">📤</button>
         </div>
         
         <h1>🇫🇷 TCF Quiz App</h1>
@@ -42,6 +44,76 @@
             <div class="button-group">
                 <button id="prevBtn" class="btn-secondary" style="display: none;">← Previous</button>
                 <button id="nextBtn">Next Question →</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Import Modal -->
+    <div id="importModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>📥 Universal Import Center</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="import-type-selector">
+                    <label>Import Type:</label>
+                    <select id="importType">
+                        <option value="vocabulary">📚 Vocabulary</option>
+                        <option value="connectors">🔗 Connectors</option>
+                        <option value="errors">⚠️ Recycled Errors</option>
+                        <option value="subjects">📖 Subjects</option>
+                        <option value="reading">📖 Reading Passages</option>
+                        <option value="listening">🎧 Listening Passages</option>
+                        <option value="profile">👤 Profile</option>
+                    </select>
+                </div>
+                
+                <div class="import-file-area">
+                    <input type="file" id="importFile" accept=".txt">
+                    <div class="preview-area" id="previewArea" style="display: none;">
+                        <h4>Preview:</h4>
+                        <pre id="previewContent"></pre>
+                        <div class="import-options">
+                            <label>
+                                <input type="radio" name="importMode" value="merge" checked> Merge with existing
+                            </label>
+                            <label>
+                                <input type="radio" name="importMode" value="replace"> Replace existing
+                            </label>
+                        </div>
+                        <button id="confirmImportBtn" class="btn-primary">Confirm Import</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Export Modal -->
+    <div id="exportModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>📤 Universal Export Center</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="export-options">
+                    <h4>Select items to export:</h4>
+                    <label><input type="checkbox" value="vocabulary"> 📚 Vocabulary</label>
+                    <label><input type="checkbox" value="connectors"> 🔗 Connectors</label>
+                    <label><input type="checkbox" value="errors"> ⚠️ Errors</label>
+                    <label><input type="checkbox" value="subjects"> 📖 Subjects</label>
+                    <label><input type="checkbox" value="profile"> 👤 Profile</label>
+                    <label><input type="checkbox" value="complete"> 💾 Complete Backup</label>
+                </div>
+                <div class="export-format">
+                    <label>Format:</label>
+                    <select id="exportFormat">
+                        <option value="txt">TXT</option>
+                        <option value="pdf">PDF</option>
+                    </select>
+                </div>
+                <button id="confirmExportBtn" class="btn-primary">Export</button>
             </div>
         </div>
     </div>
