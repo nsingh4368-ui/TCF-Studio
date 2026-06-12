@@ -1,0 +1,1 @@
+export const state={theme:'light',activeTask:1};

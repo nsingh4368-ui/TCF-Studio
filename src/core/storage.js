@@ -1,0 +1,1 @@
+export const LS=(k,d)=>JSON.parse(localStorage.getItem(k)??JSON.stringify(d)); export const SV=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
