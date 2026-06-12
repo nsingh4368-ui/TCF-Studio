@@ -62,13 +62,14 @@ body {
 .header-controls {
     display: flex;
     justify-content: flex-end;
+    gap: 10px;
     margin-bottom: 10px;
 }
 
 .icon-btn {
     background: var(--light);
     border: none;
-    font-size: 24px;
+    font-size: 20px;
     cursor: pointer;
     padding: 8px 12px;
     border-radius: 50px;
@@ -292,102 +293,151 @@ h1 {
     font-size: 16px;
 }
 
+/* Modal Styles */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 24px;
+    max-width: 500px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    animation: slideIn 0.3s ease;
+}
+
+[data-theme="dark"] .modal-content {
+    background: #1e1e2e;
+    color: #f8f9fa;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 25px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.modal-header h2 {
+    margin: 0;
+    color: var(--primary);
+}
+
+.close-modal {
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: var(--gray);
+}
+
+.modal-body {
+    padding: 25px;
+}
+
+.import-type-selector {
+    margin-bottom: 20px;
+}
+
+.import-type-selector label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.import-type-selector select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    background: var(--light);
+}
+
+#importFile {
+    width: 100%;
+    padding: 15px;
+    border: 2px dashed var(--primary);
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.preview-area {
+    margin-top: 20px;
+    padding: 15px;
+    background: var(--light);
+    border-radius: 12px;
+}
+
+.preview-area pre {
+    max-height: 200px;
+    overflow-y: auto;
+    font-size: 12px;
+    white-space: pre-wrap;
+}
+
+.import-options {
+    margin: 15px 0;
+    display: flex;
+    gap: 20px;
+}
+
+.import-options label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.export-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.export-options label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.export-format {
+    margin: 20px 0;
+}
+
+.export-format select {
+    margin-left: 10px;
+    padding: 8px;
+    border-radius: 8px;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 40px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 16px;
+    font-weight: bold;
+}
+
 @media (max-width: 600px) {
     .container { padding: 20px; }
     #question { font-size: 18px; }
     .option { padding: 12px 15px; }
     .quiz-info { font-size: 12px; }
-}    border-bottom: 2px solid #f0f0f0;
-}
-
-.progress, .score {
-    background: #667eea;
-    color: white;
-    padding: 5px 15px;
-    border-radius: 20px;
-    font-size: 14px;
-    font-weight: bold;
-}
-
-.score {
-    background: #06d6a0;
-}
-
-#question {
-    font-size: 20px;
-    margin-bottom: 25px;
-    padding: 20px;
-    background: #f7f7f7;
-    border-radius: 12px;
-    line-height: 1.5;
-}
-
-#options {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-bottom: 25px;
-}
-
-.option {
-    padding: 15px 20px;
-    background: #f0f0f0;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: all 0.3s;
-    border: 2px solid transparent;
-}
-
-.option:hover {
-    background: #e0e0e0;
-    transform: translateX(8px);
-}
-
-.option.selected {
-    background: #667eea;
-    color: white;
-}
-
-#nextBtn {
-    width: 100%;
-    padding: 15px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border: none;
-    border-radius: 12px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: transform 0.3s;
-}
-
-#nextBtn:hover {
-    transform: translateY(-2px);
-}
-
-.result-box {
-    text-align: center;
-}
-
-.result-score {
-    font-size: 48px;
-    font-weight: bold;
-    color: #06d6a0;
-    margin: 20px 0;
-}
-
-.restart-btn {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    padding: 12px 30px;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    margin-top: 20px;
-}
-
-@media (max-width: 600px) {
-    .container { padding: 25px; }
-    #question { font-size: 18px; }
-    .option { padding: 12px 15px; }
 }
