@@ -10,8 +10,7 @@
 
 ## ✨ Live Demo
 
-🌐 **Try it now:** [https://YOUR_USERNAME.github.io/tcf-quiz-app](https://YOUR_USERNAME.github.io/tcf-quiz-app)
-
+🌐 **Try it now:** (https://nsingh4368-ui.github.io/TCF-Studio/)
 ## 📸 Preview
 
 ![TCF Quiz App Preview](https://via.placeholder.com/800x400?text=TCF+Quiz+App+Screenshot)
@@ -29,7 +28,7 @@
 - 💡 **Instant Feedback** - Know if you're correct or incorrect
 - 🔄 **Restart Option** - Try again anytime
 
-### 🚀 Coming Soon
+### 🚀 Now live
 - ⏱️ **Timer Mode** - Challenge yourself with time limits
 - 📚 **Difficulty Levels** - A1, A2, B1, B2 categories
 - 💾 **Save Progress** - Continue where you left off
