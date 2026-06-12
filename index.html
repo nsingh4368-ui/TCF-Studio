@@ -6,11 +6,47 @@
     <title>TCF Quiz App - French Test Preparation</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body data-theme="light">
     <div class="container">
+        <div class="header-controls">
+            <button id="darkModeToggle" class="icon-btn">🌙</button>
+        </div>
+        
         <h1>🇫🇷 TCF Quiz App</h1>
-        <p>Coming soon: French language test preparation</p>
+        <p class="subtitle">Test de Connaissance du Français - Practice Mode</p>
+        
+        <div class="quiz-info">
+            <div class="progress">Question <span id="currentQ">1</span> / <span id="totalQ">0</span></div>
+            <div class="score">Score: <span id="score">0</span></div>
+            <div class="best-score">🏆 Best: <span id="bestScore">0</span></div>
+        </div>
+
+        <div class="timer-container">
+            <div class="timer-label">⏱️ Time Left</div>
+            <div class="timer-circle">
+                <span id="timer">30</span>
+                <svg class="timer-svg">
+                    <circle class="timer-bg" cx="40" cy="40" r="35"></circle>
+                    <circle class="timer-progress" cx="40" cy="40" r="35"></circle>
+                </svg>
+            </div>
+        </div>
+
+        <div class="progress-bar-container">
+            <div class="progress-bar-fill" id="progressBarFill" style="width: 0%"></div>
+        </div>
+
+        <div id="quiz-container">
+            <div id="question">Loading...</div>
+            <div id="options"></div>
+            <div class="button-group">
+                <button id="prevBtn" class="btn-secondary" style="display: none;">← Previous</button>
+                <button id="nextBtn">Next Question →</button>
+            </div>
+        </div>
     </div>
+
+    <script src="sujets.js"></script>
     <script src="app.js"></script>
 </body>
 </html>
