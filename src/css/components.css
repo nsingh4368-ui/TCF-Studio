@@ -1,0 +1,5 @@
+.card{
+background:var(--bg-secondary);
+border-radius:14px;
+padding:16px;
+}

@@ -1,0 +1,7 @@
+
+.app-shell{display:grid;grid-template-columns:280px 1fr;min-height:100vh;}
+.sidebar{background:#15151D;padding:24px;border-right:1px solid #2A2A38;}
+.sidebar a{display:block;padding:10px 0;color:#E2DDD4;text-decoration:none;}
+.main-area{display:flex;flex-direction:column;}
+.topbar{height:64px;border-bottom:1px solid #2A2A38;padding:0 24px;display:flex;align-items:center;justify-content:space-between;}
+.workspace{padding:24px;}
